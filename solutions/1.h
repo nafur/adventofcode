@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/strings.h"
+#include "../utils/strings.h"
 
 template<>
 struct solve<1> {
