@@ -5,6 +5,11 @@ struct solve {
 	void operator()() const {}
 };
 
+template<typename T1, typename T2>
+std::ostream& operator<<(std::ostream& os, const std::pair<T1,T2>& p) {
+	return os << "(" << p.first << ", " << p.second << ")";
+}
+
 template<typename> struct Void { using type = void; };
 template<typename T, typename SFINAE = void>
 struct has_solution : std::false_type {};
@@ -20,13 +25,14 @@ void runSolver() {
 	if constexpr(std::is_same<decltype(Solver()()), void>::value) {
 		std::cerr << "Solution for puzzle " << n << " has not yet been implemented." << std::endl;
 	} else {
-		auto res = Solver()();
+		Solver s;
+		auto res = s();
 		std::cout << "Solution: " << res << std::endl;
 		if constexpr (has_solution<Solver>::value) {
-			if (res == Solver::solution) {
+			if (res == s.solution()) {
 				std::cout << "Correct!" << std::endl;
 			} else {
-				std::cout << "Should be " << Solver::solution << std::endl;
+				std::cout << "Should be " << s.solution() << std::endl;
 			}
 		}
 	}
