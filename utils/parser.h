@@ -2,10 +2,11 @@
 
 #include <numeric>
 #include <string>
+#include <string_view>
 #include <vector>
 
 template<typename F>
-auto split_and_transform(const std::string& s, char c, F&& f) {
+auto split_and_transform(const std::string_view& s, char c, F&& f) {
 	std::vector<decltype(f(s))> res;
 	std::size_t start = 0;
 	while (s[start] == c) start++;
@@ -21,10 +22,10 @@ auto split_and_transform(const std::string& s, char c, F&& f) {
 	return res;
 }
 
-inline std::vector<std::vector<int>> parse_table(const std::string& input) {
-	return split_and_transform(input, '\n', [](const std::string& line) {
-		return split_and_transform(line, '\t', [](const std::string& number) {
-			return std::stoi(number);
+inline std::vector<std::vector<int>> parse_table(const std::string_view& input) {
+	return split_and_transform(input, '\n', [](const std::string_view& line) {
+		return split_and_transform(line, '\t', [](const std::string_view& number) {
+			return std::stoi(std::string(number));
 		});
 	});
 }
