@@ -14,8 +14,10 @@ auto split_and_transform(const std::string_view& s, const std::string& c, F&& f)
 	std::size_t end = s.find(c, start);
 	while (end != std::string::npos) {
 		res.emplace_back(f(s.substr(start, end - start)));
-		start = end + c.size();
-		end = s.find(c, start);
+		do {
+			start = end + c.size();
+			end = s.find(c, start);
+		} while (start == end);
 	}
 	if (start < s.size()) {
 		res.emplace_back(f(s.substr(start)));
