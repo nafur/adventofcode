@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 #include <numeric>
 #include <string>
 #include <string_view>
@@ -27,10 +28,24 @@ auto split_and_transform(const std::string_view& s, char c, F&& f) {
 	return split_and_transform(s, std::string(1, c), std::forward<F>(f));
 }
 
+template<typename C>
+auto split(const std::string_view& s, C&& c) {
+	return split_and_transform(s, std::forward<C>(c), [](const auto& s){ return std::string(s); });
+}
+
 inline std::vector<std::vector<int>> parse_table(const std::string_view& input) {
 	return split_and_transform(input, '\n', [](const std::string_view& line) {
 		return split_and_transform(line, '\t', [](const std::string_view& number) {
 			return std::stoi(std::string(number));
 		});
 	});
+}
+
+std::vector<std::string> read_file_linewise(const std::string& filename) {
+	std::ifstream input(filename);
+	std::vector<std::string> res;
+	for (std::string line; std::getline(input, line); ) {
+        res.emplace_back(std::move(line));
+    }
+	return res;
 }
