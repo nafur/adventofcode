@@ -47,7 +47,17 @@ std::vector<std::string> read_file_linewise(const std::string& filename) {
 	std::ifstream input(filename);
 	std::vector<std::string> res;
 	for (std::string line; std::getline(input, line); ) {
-        res.emplace_back(std::move(line));
-    }
+		res.emplace_back(std::move(line));
+	}
+	return res;
+}
+
+template<typename F>
+auto read_file_linewise(const std::string& filename, F&& f) {
+	std::ifstream input(filename);
+	std::vector<decltype(f(filename))> res;
+	for (std::string line; std::getline(input, line); ) {
+		res.emplace_back(f(line));
+	}
 	return res;
 }
