@@ -1,8 +1,11 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <utility>
 #include <vector>
+
+using namespace std::string_literals;
 
 template<std::size_t n>
 struct solve {
@@ -14,7 +17,7 @@ std::ostream& operator<<(std::ostream& os, const std::pair<T1,T2>& p) {
 	return os << "(" << p.first << ", " << p.second << ")";
 }
 template<typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
+inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
 	os << "[" << v.size() << ": ";
 	bool first = true;
 	for (const auto& t: v) {

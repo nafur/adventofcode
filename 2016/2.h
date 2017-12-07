@@ -5,8 +5,6 @@
 #include <algorithm>
 #include <string>
 
-using namespace std::string_literals;
-
 template<>
 struct solve<2> {
 	static auto solution() {
