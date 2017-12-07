@@ -8,7 +8,8 @@
 #include "2016/6.h"
 #include "2016/7.h"
 #include "2016/8.h"
+#include "2016/9.h"
 
 int main() {
-	runSolver<8>();
+	runSolver<9>();
 }

@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <numeric>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -61,6 +62,13 @@ inline std::vector<std::vector<int>> parse_table(const std::string_view& input) 
 			return std::stoi(std::string(number));
 		});
 	});
+}
+
+std::string read_file(const std::string& filename) {
+	std::ifstream input(filename);
+	std::stringstream buf;
+	buf << input.rdbuf();
+	return buf.str();
 }
 
 std::vector<std::string> read_file_linewise(const std::string& filename) {
