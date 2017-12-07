@@ -1,4 +1,8 @@
+#pragma once
+
 #include <iostream>
+#include <utility>
+#include <vector>
 
 template<std::size_t n>
 struct solve {
@@ -8,6 +12,17 @@ struct solve {
 template<typename T1, typename T2>
 std::ostream& operator<<(std::ostream& os, const std::pair<T1,T2>& p) {
 	return os << "(" << p.first << ", " << p.second << ")";
+}
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
+	os << "[" << v.size() << ": ";
+	bool first = true;
+	for (const auto& t: v) {
+		if (!first) os << ", ";
+		first = false;
+		os << t;
+	}
+	return os << "]";
 }
 
 template<typename> struct Void { using type = void; };

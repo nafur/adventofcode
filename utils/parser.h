@@ -35,6 +35,26 @@ auto split(const std::string_view& s, C&& c) {
 	return split_and_transform(s, std::forward<C>(c), [](const auto& s){ return std::string(s); });
 }
 
+template<typename F>
+auto split_by_multiple(const std::string_view& s, F&& f) {
+	std::vector<std::string> res;
+	std::size_t start = 0;
+	std::size_t cur = 0;
+	while (cur < s.size()) {
+		if (f(s[cur])) {
+			if (start != cur) {
+				res.emplace_back(s.substr(start, cur - start));
+			}
+			start = cur + 1;
+		}
+		++cur;
+	}
+	if (start != cur) {
+		res.emplace_back(s.substr(start));
+	}
+	return res;
+}
+
 inline std::vector<std::vector<int>> parse_table(const std::string_view& input) {
 	return split_and_transform(input, '\n', [](const std::string_view& line) {
 		return split_and_transform(line, '\t', [](const std::string_view& number) {
