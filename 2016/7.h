@@ -12,9 +12,9 @@
 
 template<>
 struct solve<7> {
-	//static auto solution() {
-	//	return std::make_pair("kjxfwkdh"s, "xrwcsnps"s);
-	//}
+	static auto solution() {
+		return std::make_pair(118, 260);
+	}
 	const std::string input = "2016/7.input";
 	
 	std::regex abbare = std::regex("([a-z])([a-z])\\2\\1");
@@ -22,12 +22,13 @@ struct solve<7> {
 	
 	std::vector<std::string> getAbbas(const std::string& s, const std::regex& re) const {
 		std::vector<std::string> res;
-		auto begin = std::sregex_iterator(s.begin(), s.end(), re);
-		auto end = std::sregex_iterator();
-		for (auto i = begin; i != end; ++i) {
-			const std::string& match = (*i)[0];
-			if (match[0] == match[1]) continue;
-			res.emplace_back(match);
+		std::string_view sv(s);
+		std::match_results<std::string_view::const_iterator> match;
+		while (std::regex_search(sv.begin(), sv.end(), match, re)) {
+			std::string m = match[0];
+			sv.remove_prefix(match.position() + 1);
+			if (m[0] == m[1]) continue;
+			res.emplace_back(m);
 		}
 		return res;
 	}
@@ -60,8 +61,6 @@ struct solve<7> {
 	
 	auto operator()() const {
 		auto lines = read_file_linewise(input);
-		lines.clear();
-		lines.emplace_back("zazbz[bzb]cdb");
 		std::regex outsidere("([a-z]+)");
 		std::regex insidere("\\[([a-z]+)\\]");
 		int count1 = 0;
@@ -77,7 +76,6 @@ struct solve<7> {
 			
 			auto aba1 = getAbbas(res.first, abare);
 			auto aba2 = getAbbas(res.second, abare);
-			std::cout << line << " -> " << aba1 << " / " << aba2 << std::endl;
 			for (const auto& aba: aba1) {
 				if (contains_reversed(aba2, aba)) {
 					++count2;
