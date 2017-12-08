@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <map>
 #include <string>
 #include <utility>
 #include <vector>
@@ -26,6 +27,17 @@ inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
 		os << t;
 	}
 	return os << "]";
+}
+template<typename T1, typename T2>
+std::ostream& operator<<(std::ostream& os, const std::map<T1,T2>& m) {
+	os << "{";
+	bool first = true;
+	for (const auto& t: m) {
+		if (!first) os << ", ";
+		first = false;
+		os << t.first << ": " << t.second;
+	}
+	return os << "}";
 }
 
 template<typename> struct Void { using type = void; };
