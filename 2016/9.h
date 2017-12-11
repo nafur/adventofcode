@@ -55,9 +55,7 @@ struct solve<9> {
 	}
 	
 	auto operator()() const {
-		
 		std::string data = read_file(input);
-		while (data.back() == '\n') data.pop_back();
 		return std::make_pair(decompress_1(data).length(), decompress_2_length(data));
 	}
 };

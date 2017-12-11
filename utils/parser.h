@@ -68,7 +68,9 @@ std::string read_file(const std::string& filename) {
 	std::ifstream input(filename);
 	std::stringstream buf;
 	buf << input.rdbuf();
-	return buf.str();
+	std::string res = buf.str();
+	while (res.back() == '\n') res.pop_back();
+	return res;
 }
 
 std::vector<std::string> read_file_linewise(const std::string& filename) {

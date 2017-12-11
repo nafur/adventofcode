@@ -10,7 +10,8 @@
 #include "2017/8.h"
 #include "2017/9.h"
 #include "2017/10.h"
+#include "2017/11.h"
 
 int main() {
-	runSolver<10>();
+	runSolver<11>();
 }

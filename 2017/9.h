@@ -71,9 +71,8 @@ struct solve<9> {
 	const std::string input = "2017/9.input";
 	auto operator()() const {
 		auto data = read_file(input);
-		while (data.back() == '\n') data.pop_back();
-		
 		assert(data[0] == '{');
+		
 		auto res = score_group(data);
 		assert(std::get<2>(res) == data.size());
 		return std::make_pair(std::get<0>(res), std::get<1>(res));

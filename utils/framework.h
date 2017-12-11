@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -13,6 +14,16 @@ struct solve {
 	void operator()() const {}
 };
 
+template<std::size_t I = 0, typename... T, typename std::enable_if<I == sizeof...(T), void>::type* = nullptr>
+inline std::ostream& operator<<(std::ostream& os, const std::tuple<T...>& /*unused*/) {
+	return os << ")";
+}
+template<std::size_t I = 0, typename... T, typename std::enable_if<I < sizeof...(T), void>::type* = nullptr>
+std::ostream& operator<<(std::ostream& os, const std::tuple<T...>& t) {
+	if (I == 0) os << "(" << std::get<I>(t);
+	else os << ", " << std::get<I>(t);
+	return operator<< <I+1>(os, t);
+}
 template<typename T1, typename T2>
 std::ostream& operator<<(std::ostream& os, const std::pair<T1,T2>& p) {
 	return os << "(" << p.first << ", " << p.second << ")";
@@ -20,6 +31,17 @@ std::ostream& operator<<(std::ostream& os, const std::pair<T1,T2>& p) {
 template<typename T>
 inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
 	os << "[" << v.size() << ": ";
+	bool first = true;
+	for (const auto& t: v) {
+		if (!first) os << ", ";
+		first = false;
+		os << t;
+	}
+	return os << "]";
+}
+template<typename T, std::size_t N>
+inline std::ostream& operator<<(std::ostream& os, const std::array<T,N>& v) {
+	os << "[" << N << ": ";
 	bool first = true;
 	for (const auto& t: v) {
 		if (!first) os << ", ";
