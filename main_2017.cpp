@@ -11,7 +11,8 @@
 #include "2017/9.h"
 #include "2017/10.h"
 #include "2017/11.h"
+#include "2017/12.h"
 
 int main() {
-	runSolver<11>();
+	runSolver<12>();
 }
