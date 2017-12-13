@@ -11,9 +11,9 @@
 
 template<>
 struct solve<12> {
-	//static auto solution() {
-	//	return std::make_pair(743, 1493);
-	//}
+	static auto solution() {
+		return std::make_pair(288, 211);
+	}
 	
 	void addEdge(std::vector<std::vector<std::size_t>>& graph, std::size_t src, std::size_t dst) const {
 		while (graph.size() <= src) graph.emplace_back();
