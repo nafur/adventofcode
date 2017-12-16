@@ -17,10 +17,9 @@ struct solve<13> {
 			if (firewall[cur] == 0) continue;
 			int pos = (cur + delay) % (2 * (firewall[cur] - 1));
 			if (pos == 0) {
-				//std::cout << "Caught at " << cur << " with delay " << delay << std::endl;
 				if (severity == -1) severity = 0;
-				severity += cur * firewall[cur];
 				if (delay > 0) break;
+				severity += cur * firewall[cur];
 			}
 		}
 		return severity;

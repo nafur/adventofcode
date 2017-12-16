@@ -3,6 +3,8 @@
 #include <sstream>
 #include <vector>
 
+#include "../utils/knot_hash.h"
+
 template<>
 struct solve<10> {
 	static auto solution() {
@@ -11,22 +13,6 @@ struct solve<10> {
 	
 	const std::vector<int> input = {120,93,0,90,5,80,129,74,1,165,204,255,254,2,50,113};
 	const std::string key = "120,93,0,90,5,80,129,74,1,165,204,255,254,2,50,113";
-	
-	std::vector<int> reverse(const std::vector<int>& data, int cur, int len) const {
-		std::vector<int> res(data.begin(), data.end());
-		for (int i = 0; i < len; i++) {
-			res[(cur + len - 1 - i) % res.size()] = data[(cur + i) % data.size()];
-		}
-		return res;
-	}
-	
-	void one_round(std::vector<int>& data, const std::vector<int>& key, int& cur, int& skip) const {
-		for (int i: key) {
-			data = reverse(data, cur, i);
-			cur = (cur + i + skip) % data.size();
-			++skip;
-		}
-	}
 	
 	std::string make_dense(const std::vector<int>& data) const {
 		assert(data.size() == 256);
@@ -42,29 +28,18 @@ struct solve<10> {
 	}
 	
 	int hash1(std::vector<int> data) const {
-		int cur = 0;
-		int skip = 0;
-		one_round(data, input, cur, skip);
+		data = knot_hash::once(data, input);
 		return data[0] * data[1];
 	}
 	
 	std::string hash2(std::vector<int> data) const {
-		std::vector<int> input;
-		for (char c: key) input.emplace_back(c);
-		input.insert(input.end(), {17, 31, 73, 47, 23});
-		
-		int cur = 0;
-		int skip = 0;
-		for (int i = 0; i < 64; ++i) {
-			one_round(data, input, cur, skip);
-		}
-		return make_dense(data);
+		auto input = knot_hash::from_string(key);
+		return knot_hash::digest(knot_hash::dense_hash(data, input, 64));
 	}
 	
 	
 	auto operator()() const {
-		std::vector<int> data;
-		for (int i = 0; i < 256; ++i) data.emplace_back(i);
+		std::vector<int> data = knot_hash::initial(256);
 		
 		return std::make_pair(hash1(data), hash2(data));
 	}

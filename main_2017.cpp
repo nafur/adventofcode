@@ -13,7 +13,9 @@
 #include "2017/11.h"
 #include "2017/12.h"
 #include "2017/13.h"
+#include "2017/14.h"
+#include "2017/15.h"
 
 int main() {
-	runSolver<13>();
+	runSolver<15>();
 }
