@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <iostream>
 #include <map>
 #include <string>
@@ -78,8 +79,11 @@ void runSolver() {
 		std::cerr << "Solution for puzzle " << n << " has not yet been implemented." << std::endl;
 	} else {
 		Solver s;
+		auto start = std::chrono::high_resolution_clock::now();
 		auto res = s();
-		std::cout << "Solution: " << res << std::endl;
+		auto end = std::chrono::high_resolution_clock::now();
+		auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+		std::cout << "Solution: " << res << " in " << diff.count() << " ms" << std::endl;
 		if constexpr (has_solution<Solver>::value) {
 			if (res == s.solution()) {
 				std::cout << "Correct!" << std::endl;
