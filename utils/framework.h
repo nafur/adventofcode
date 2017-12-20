@@ -40,6 +40,12 @@ inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
 	}
 	return os << "]";
 }
+inline std::ostream& operator<<(std::ostream& os, const std::vector<bool>& v) {
+	for (auto t: v) {
+		os << (t ? '1' : '0');
+	}
+	return os;
+}
 template<typename T, std::size_t N>
 inline std::ostream& operator<<(std::ostream& os, const std::array<T,N>& v) {
 	os << "[" << N << ": ";

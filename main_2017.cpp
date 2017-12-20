@@ -17,7 +17,9 @@
 #include "2017/15.h"
 #include "2017/16.h"
 #include "2017/17.h"
+#include "2017/19.h"
+#include "2017/20.h"
 
 int main() {
-	runSolver<17>();
+	runSolver<24>();
 }
