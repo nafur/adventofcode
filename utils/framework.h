@@ -3,6 +3,7 @@
 #include <chrono>
 #include <iostream>
 #include <map>
+#include <queue>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -39,6 +40,11 @@ inline std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
 		os << t;
 	}
 	return os << "]";
+}
+template<typename T>
+inline std::ostream& operator<<(std::ostream& os, const std::queue<T>& q) {
+	if (q.empty()) return os << "[]";
+	return os << "[" << q.front() << " ... " << q.back() << "]";
 }
 inline std::ostream& operator<<(std::ostream& os, const std::vector<bool>& v) {
 	for (auto t: v) {
