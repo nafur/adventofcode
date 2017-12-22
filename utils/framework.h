@@ -81,9 +81,11 @@ struct has_solution : std::false_type {};
 template<typename T>
 struct has_solution<T, typename Void<decltype( T::solution )>::type> : std::true_type {}; 
 
-template<std::size_t n>
+template<std::size_t begin, std::size_t n>
 void runSolver() {
-	runSolver<n-1>();
+	if constexpr(begin < n) {
+		runSolver<begin, n-1>();
+	}
 	
 	using Solver = solve<n>;
 	std::cout << "***** Solving puzzle " << n << std::endl;
@@ -106,6 +108,3 @@ void runSolver() {
 	}
 	std::cout << std::endl;
 }
-
-template<>
-void runSolver<0>() {}

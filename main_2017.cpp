@@ -21,7 +21,8 @@
 #include "2017/19.h"
 #include "2017/20.h"
 #include "2017/21.h"
+#include "2017/22.h"
 
 int main() {
-	runSolver<24>();
+	runSolver<1,24>();
 }
