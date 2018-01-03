@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../utils/parser.h"
+#include "../utils/grid.h"
 
 #include <bitset>
 #include <cstdint>
@@ -19,23 +20,7 @@ struct solve<22> {
 	
 	const std::string input = "2017/22.input";
 	
-	struct InfiniteField {
-		std::vector<std::vector<int>> mData;
-		int& operator()(int x, int y) {
-			std::size_t x2 = (x < 0 ? 2*std::abs(x)-1 : 2*x);
-			std::size_t y2 = (y < 0 ? 2*std::abs(y)-1 : 2*y);
-			while (mData.size() <= y2) {
-				mData.emplace_back();
-			}
-			if (mData[y2].size() <= x2) {
-				mData[y2].resize(x2+1, 0);
-			}
-			return mData[y2][x2];
-		}
-		int& operator()(const std::pair<int,int>& pos) {
-			return (*this)(pos.first, pos.second);
-		}
-	};
+	using InfiniteField = InfiniteGrid<int>;
 	
 	void turn(std::pair<int,int>& dir, bool left) const {
 		if (left) {
