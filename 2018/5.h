@@ -12,7 +12,7 @@
 template<>
 struct solve<5> {
 	static auto solution() {
-		return std::make_pair(106501, 632);
+		return std::make_pair(10638, 4944);
 	}
 
 	std::string reduce(const std::string& s) const {

@@ -12,7 +12,7 @@
 template<>
 struct solve<4> {
 	static auto solution() {
-		return std::make_pair(106501, 632);
+		return std::make_pair(98680, 9763);
 	}
 
 	struct Entry {
