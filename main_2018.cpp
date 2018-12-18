@@ -8,7 +8,8 @@
 #include "2018/6.h"
 #include "2018/7.h"
 #include "2018/8.h"
+#include "2018/9.h"
 
 int main() {
-	runSolver<1,8>();
+	runSolver<9,9>();
 }

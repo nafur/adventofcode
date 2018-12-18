@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <list>
 #include <map>
 #include <queue>
 #include <string>
@@ -55,6 +56,17 @@ inline std::ostream& operator<<(std::ostream& os, const std::vector<bool>& v) {
 template<typename T, std::size_t N>
 inline std::ostream& operator<<(std::ostream& os, const std::array<T,N>& v) {
 	os << "[" << N << ": ";
+	bool first = true;
+	for (const auto& t: v) {
+		if (!first) os << ", ";
+		first = false;
+		os << t;
+	}
+	return os << "]";
+}
+template<typename T>
+inline std::ostream& operator<<(std::ostream& os, const std::list<T>& v) {
+	os << "[";
 	bool first = true;
 	for (const auto& t: v) {
 		if (!first) os << ", ";

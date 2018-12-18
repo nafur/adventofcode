@@ -3,7 +3,6 @@
 #include "../utils/parser.h"
 
 #include <algorithm>
-#include <array>
 #include <cassert>
 #include <charconv>
 
